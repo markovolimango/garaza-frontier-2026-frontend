@@ -41,3 +41,22 @@ describe("useJjMood", () => {
     second.unmount();
   });
 });
+
+describe("moodOrbPalette", () => {
+  const hue = (oklch: string) => Number(oklch.match(/oklch\([^)]*?\s([\d.]+)\)/)?.[1]);
+
+  it("is a red family at 0 and a green family at 1", () => {
+    const red = moodOrbPalette(0);
+    const green = moodOrbPalette(1);
+    for (const key of ["a", "b", "c", "hi"] as const) {
+      expect(hue(red[key])).toBeLessThan(45);
+      expect(hue(green[key])).toBeGreaterThan(140);
+    }
+  });
+
+  it("sits on amber in the middle", () => {
+    const mid = moodOrbPalette(0.5);
+    expect(hue(mid.a)).toBeGreaterThan(45);
+    expect(hue(mid.a)).toBeLessThan(110);
+  });
+});
