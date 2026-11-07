@@ -23,7 +23,7 @@ function blobPath(r: number, t: number, amp: number, seed: number) {
   }
   let d = "";
   for (let i = 0; i < POINTS; i++) {
-    const p0 = pts[(i - 1 + POINTS) % POINTS], p1 = pts[i], p2 = pts[(i + 1) % POINTS], p3 = pts[(i + 2) % POINTS];
+    const p0 = pts[(i - 1 + POINTS) % POINTS]!, p1 = pts[i]!, p2 = pts[(i + 1) % POINTS]!, p3 = pts[(i + 2) % POINTS]!;
     if (i === 0) d += `M${p1[0].toFixed(2)},${p1[1].toFixed(2)}`;
     const c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
     const c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
