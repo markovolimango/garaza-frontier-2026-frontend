@@ -29,7 +29,7 @@ function Presenter() {
   const [totalSec, setTotalSec] = useState(300);
   const [timings, setTimings] = useState<number[]>([]);
   const [auto, setAuto] = useState(false);
-  const [rehearse, setRehearse] = useState(false);
+  const rehearse = false;
   const [slideElapsed, setSlideElapsed] = useState(0);
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState("");
@@ -104,17 +104,6 @@ function Presenter() {
     if (count) setTimings(Array(count).fill(Math.round((totalSec / count) * 10) / 10));
   }
 
-  function toggleRehearse() {
-    if (rehearse) {
-      const spent = (performance.now() - slideStart.current) / 1000;
-      setTimings((t) => t.map((v, i) => (i === slide ? Math.round(spent * 10) / 10 : v)));
-    } else {
-      slideStart.current = performance.now();
-      setSlideElapsed(0);
-    }
-    setRehearse((r) => !r);
-  }
-
   const cur = timings[slide] || 0;
   const progress = cur ? Math.min(1, slideElapsed / cur) : 0;
 
@@ -144,7 +133,6 @@ function Presenter() {
           </span>
           <div className="ml-auto flex items-center gap-2">
             <Btn onClick={() => setAuto((a) => !a)} active={auto}>Auto-advance</Btn>
-            <Btn onClick={toggleRehearse} active={rehearse}>{rehearse ? "Stop rehearse" : "Rehearse"}</Btn>
             <NextButton to="/judges" label="Judges" />
           </div>
         </div>
