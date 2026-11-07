@@ -30,3 +30,4 @@ use the editor.
 <!-- LOVABLE:END -->
 
 - Live data flows only through the typed bus in src/signals; components subscribe to it and never import a source directly, so sources can be swapped in src/signals/index.ts.
+- Screen-scoped colors are sampled once on mount and applied as inline custom properties (see src/signals/useJjMood.ts and moodOrbPalette), so a screen keeps one color for its whole visit instead of following a live channel.
