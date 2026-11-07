@@ -1,5 +1,5 @@
 import { publish, type FeedbackColor } from "../bus";
-import { DEFAULT_JJ_MOOD, clamp01 } from "../mood";
+import { clamp01 } from "../mood";
 import type { SignalSource } from "./types";
 
 const COLORS: FeedbackColor[] = ["red", "green", "neutral"];
@@ -10,7 +10,8 @@ export class MockSource implements SignalSource {
   private moodTimer: ReturnType<typeof setInterval> | null = null;
   private level = 0.5;
   private velocity = 0;
-  private mood = DEFAULT_JJ_MOOD;
+  // Starts somewhere on the scale so the first screen doesn't always wear the same color.
+  private mood = Math.random();
   private paused = false;
 
   constructor() {
