@@ -79,7 +79,7 @@ function Row({ k, v, swatch }: { k: string; v: string | number; swatch?: string 
 }
 
 /** The red → green scale, with the live mood and the value JJ loaded. */
-function MoodBar({ live, load }: { live?: number; load?: number }) {
+function MoodBar({ live, load }: { live?: number | undefined; load?: number | undefined }) {
   return (
     <div className="pt-1">
       <div
