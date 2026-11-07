@@ -1,23 +1,36 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Orb } from "@/components/Orb";
+import { NextButton } from "@/components/NextButton";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "JJ — Pitch Practice" },
+      { name: "description", content: "Meet JJ, your AI pitch coach. Start a practice run." },
+      { property: "og:title", content: "JJ — Pitch Practice" },
+      { property: "og:description", content: "Meet JJ, your AI pitch coach. Start a practice run." },
+    ],
+  }),
+  component: JJ,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function JJ() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="relative flex h-screen flex-col items-center justify-center gap-12">
+      <span className="absolute left-8 top-6 font-mono text-xs tracking-widest text-muted-foreground">JJ</span>
+      <Orb />
+      <p className="max-w-xl text-center text-lg text-muted-foreground">
+        “Hi, I'm JJ. Whenever you're ready, start your run and I'll listen in.”
+      </p>
+      <Link
+        to="/presenter"
+        className="rounded-full bg-primary px-8 py-3 font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:scale-105"
+      >
+        Start run
+      </Link>
+      <div className="absolute bottom-6 left-8">
+        <NextButton to="/presenter" label="Presenter" />
+      </div>
+    </main>
   );
 }
