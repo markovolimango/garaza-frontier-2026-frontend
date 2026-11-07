@@ -4,6 +4,7 @@ import { Orb } from "@/components/Orb";
 import { NextButton } from "@/components/NextButton";
 import { moodOrbPalette } from "@/signals/mood";
 import { useJjMood } from "@/signals/useJjMood";
+import { useSignal } from "@/signals/useSignal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -12,12 +13,19 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Meet JJ, your AI pitch coach. Start a practice run." },
       { property: "og:title", content: "JJ — Pitch Practice" },
       { property: "og:description", content: "Meet JJ, your AI pitch coach. Start a practice run." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: JJ,
 });
 
 function JJ() {
+  const reload = useSignal("jjReload");
+  return <JJScreen key={reload ?? 0} />;
+}
+
+function JJScreen() {
   // Sampled once on load: JJ keeps this color for the whole visit.
   const mood = useJjMood();
   const palette = moodOrbPalette(mood);

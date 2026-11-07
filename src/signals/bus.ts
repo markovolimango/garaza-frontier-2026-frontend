@@ -12,6 +12,8 @@ export interface Channels {
   jjMood: number;
   /** The jjMood value JJ's screen sampled the last time it loaded. */
   jjMoodSampled: number;
+  /** Explicit debug request to reload JJ with a selected mood. */
+  jjReload: number;
 }
 
 export type Channel = keyof Channels;
@@ -23,6 +25,7 @@ const listeners: { [C in Channel]: Set<Listener<C>> } = {
   slide: new Set(),
   jjMood: new Set(),
   jjMoodSampled: new Set(),
+  jjReload: new Set(),
 };
 const last: Partial<Channels> = {};
 

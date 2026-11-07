@@ -40,6 +40,18 @@ describe("useJjMood", () => {
     expect(getLast("jjMoodSampled")).toBe(0.9);
     second.unmount();
   });
+
+  it("applies the debug-selected color on remount, not before", () => {
+    publish("jjMood", 0.2);
+    const first = renderHook(() => useJjMood());
+    publish("jjMood", 1);
+    expect(first.result.current).toBe(0.2);
+    first.unmount();
+    const reloaded = renderHook(() => useJjMood());
+    expect(reloaded.result.current).toBe(1);
+    expect(getLast("jjMoodSampled")).toBe(1);
+    reloaded.unmount();
+  });
 });
 
 describe("moodOrbPalette", () => {
