@@ -8,6 +8,10 @@ export interface Channels {
   orbLevel: number;
   feedback: Feedback;
   slide: number;
+  /** Live mood for JJ: 0 = red, 1 = green. Drifts while the app runs. */
+  jjMood: number;
+  /** The jjMood value JJ's screen sampled the last time it loaded. */
+  jjMoodSampled: number;
 }
 
 export type Channel = keyof Channels;
@@ -17,6 +21,8 @@ const listeners: { [C in Channel]: Set<Listener<C>> } = {
   orbLevel: new Set(),
   feedback: new Set(),
   slide: new Set(),
+  jjMood: new Set(),
+  jjMoodSampled: new Set(),
 };
 const last: Partial<Channels> = {};
 

@@ -1,4 +1,5 @@
 import { publish, type FeedbackColor } from "../bus";
+import { DEFAULT_JJ_MOOD, clamp01 } from "../mood";
 import type { SignalSource } from "./types";
 
 const COLORS: FeedbackColor[] = ["red", "green", "neutral"];
@@ -6,9 +7,16 @@ const COLORS: FeedbackColor[] = ["red", "green", "neutral"];
 export class MockSource implements SignalSource {
   private orbTimer: ReturnType<typeof setInterval> | null = null;
   private fbTimer: ReturnType<typeof setTimeout> | null = null;
+  private moodTimer: ReturnType<typeof setInterval> | null = null;
   private level = 0.5;
   private velocity = 0;
+  private mood = DEFAULT_JJ_MOOD;
   private paused = false;
+
+  constructor() {
+    // Seed the channel so a screen that loads before the first tick still gets a color.
+    publish("jjMood", this.mood);
+  }
 
   start() {
     if (this.orbTimer) return;
@@ -26,6 +34,12 @@ export class MockSource implements SignalSource {
       }
       publish("orbLevel", this.level);
     }, 50);
+    // Mood drifts slowly — it is meant to be read once per screen load, not followed.
+    this.moodTimer = setInterval(() => {
+      if (this.paused) return;
+      this.mood = clamp01(this.mood + (Math.random() - 0.5) * 0.16);
+      publish("jjMood", this.mood);
+    }, 1200);
     this.scheduleFeedback();
   }
 
@@ -44,8 +58,10 @@ export class MockSource implements SignalSource {
   stop() {
     if (this.orbTimer) clearInterval(this.orbTimer);
     if (this.fbTimer) clearTimeout(this.fbTimer);
+    if (this.moodTimer) clearInterval(this.moodTimer);
     this.orbTimer = null;
     this.fbTimer = null;
+    this.moodTimer = null;
   }
 
   setPaused(p: boolean) {
