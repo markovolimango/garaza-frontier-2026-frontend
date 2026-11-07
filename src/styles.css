@@ -181,11 +181,14 @@ body { font-family: var(--font-sans); overflow: hidden; }
  */
 .jj-scene {
   --jj-mood: oklch(0.72 0.19 82);
-  --orb-a: color-mix(in oklab, var(--jj-mood) 55%, var(--orb-a-base));
-  --orb-b: color-mix(in oklab, var(--jj-mood) 50%, var(--orb-b-base));
-  --orb-c: color-mix(in oklab, var(--jj-mood) 45%, var(--orb-c-base));
-  --orb-hi: color-mix(in oklab, var(--jj-mood) 20%, var(--orb-hi-base));
+  --orb-a: color-mix(in oklab, var(--jj-mood) 72%, var(--orb-a-base));
+  --orb-b: color-mix(in oklab, var(--jj-mood) 66%, var(--orb-b-base));
+  --orb-c: color-mix(in oklab, var(--jj-mood) 62%, var(--orb-c-base));
+  --orb-hi: color-mix(in oklab, var(--jj-mood) 30%, var(--orb-hi-base));
 }
+/* The plasma's hue drift is kept gentle here so a red mood stays red instead of drifting to magenta. */
+@keyframes orb-hue-soft { to { filter: hue-rotate(-10deg); } }
+.jj-scene .orb svg { animation-name: orb-hue-soft; }
 
 .vignette { position: absolute; inset: 0; transition: opacity 600ms ease; }
 .vignette-red { background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-red) 100%); }

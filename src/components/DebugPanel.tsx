@@ -66,7 +66,7 @@ export function DebugPanel() {
   );
 }
 
-function Row({ k, v, swatch }: { k: string; v: string | number; swatch?: string }) {
+function Row({ k, v, swatch }: { k: string; v: string | number; swatch?: string | undefined }) {
   return (
     <div className="flex items-center justify-between gap-2">
       <span className="text-muted-foreground">{k}</span>
