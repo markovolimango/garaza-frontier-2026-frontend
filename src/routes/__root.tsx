@@ -135,7 +135,7 @@ function RootComponent() {
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).closest("input,textarea,select")) return;
       const i = Number(e.key) - 1;
-      if (i >= 0 && i < SCREENS.length) navigate({ to: SCREENS[i] });
+      if (i >= 0 && i < SCREENS.length) navigate({ to: SCREENS[i]! });
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);

@@ -33,7 +33,7 @@ export class MockSource implements SignalSource {
     this.fbTimer = setTimeout(() => {
       if (!this.paused) {
         publish("feedback", {
-          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          color: COLORS[Math.floor(Math.random() * COLORS.length)]!,
           intensity: Math.random(),
         });
       }
