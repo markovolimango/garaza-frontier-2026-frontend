@@ -2,7 +2,7 @@ import { renderHook } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { getLast, publish } from "@/signals/bus";
-import { moodColor, moodLabel } from "@/signals/mood";
+import { moodColor, moodLabel, moodOrbPalette } from "@/signals/mood";
 import { useJjMood } from "@/signals/useJjMood";
 
 describe("jjMood color scale", () => {

@@ -175,18 +175,11 @@ body { font-family: var(--font-sans); overflow: hidden; }
 @keyframes orb-bloom { to { transform: rotate(160deg) scale(1.1); } }
 
 /*
- * JJ's screen: the orb wears the mood color sampled when the screen loaded.
- * The mood is mixed into the plasma colors rather than replacing them, so JJ
- * still reads as the same blob, just warmer (red) or cooler (green).
+ * JJ's screen: the orb wears the mood colors sampled when the screen loaded.
+ * The colors come in as inline --orb-* variables from src/signals/mood.ts.
+ * The plasma's hue drift is kept gentle here so a red mood stays red instead of
+ * drifting toward magenta.
  */
-.jj-scene {
-  --jj-mood: oklch(0.72 0.19 82);
-  --orb-a: color-mix(in oklab, var(--jj-mood) 72%, var(--orb-a-base));
-  --orb-b: color-mix(in oklab, var(--jj-mood) 66%, var(--orb-b-base));
-  --orb-c: color-mix(in oklab, var(--jj-mood) 62%, var(--orb-c-base));
-  --orb-hi: color-mix(in oklab, var(--jj-mood) 30%, var(--orb-hi-base));
-}
-/* The plasma's hue drift is kept gentle here so a red mood stays red instead of drifting to magenta. */
 @keyframes orb-hue-soft { to { filter: hue-rotate(-10deg); } }
 .jj-scene .orb svg { animation-name: orb-hue-soft; }
 
