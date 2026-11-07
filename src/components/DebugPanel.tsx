@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { activeSource, publish } from "@/signals";
+import { activeSource, getLast, publish } from "@/signals";
+import { RotateCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useSignal } from "@/signals/useSignal";
 import { MOOD_HUE_GREEN, MOOD_HUE_RED, clamp01, moodColor, moodLabel } from "@/signals/mood";
 
@@ -11,6 +13,8 @@ export function DebugPanel() {
   const slide = useSignal("slide");
   const mood = useSignal("jjMood");
   const loadMood = useSignal("jjMoodSampled");
+  const [selectedMood, setSelectedMood] = useState<number | null>(null);
+  const chosenMood = selectedMood ?? loadMood ?? mood ?? 0.5;
 
   return (
     <div className="fixed bottom-4 right-4 z-[110] w-64 rounded-lg border border-border bg-card/90 font-mono text-xs text-card-foreground backdrop-blur">
@@ -37,6 +41,34 @@ export function DebugPanel() {
             swatch={loadMood === undefined ? undefined : moodColor(loadMood)}
           />
           <MoodBar live={mood} load={loadMood} />
+          <div className="space-y-2 border-t border-border pt-2">
+            <label htmlFor="jj-load-color" className="flex justify-between text-muted-foreground">
+              <span>JJ reload color</span>
+              <span>{chosenMood.toFixed(3)}</span>
+            </label>
+            <input
+              id="jj-load-color"
+              aria-label="JJ reload color"
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={chosenMood}
+              onChange={(e) => setSelectedMood(Number(e.target.value))}
+              className="w-full accent-primary"
+            />
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={() => {
+                publish("jjMood", chosenMood);
+                publish("jjReload", (getLast("jjReload") ?? 0) + 1);
+              }}
+            >
+              <RotateCw /> Reload JJ
+            </Button>
+          </div>
           <label className="flex items-center gap-2 pt-1">
             <input
               type="checkbox"
