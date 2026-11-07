@@ -35,13 +35,14 @@ interface MoodPalette {
   c: Oklch;
   hi: Oklch;
 }
+type MoodStop = { at: number } & MoodPalette;
 
 /**
  * The orb's four colors at each point of the scale. Keyed on the mood itself
  * rather than mixed into the default plasma, so a low mood really reads red
  * instead of picking up the plasma's violet and going pink.
  */
-const MOOD_STOPS: { at: number } & MoodPalette[] = [
+const MOOD_STOPS: MoodStop[] = [
   { at: 0, a: [0.8, 0.16, 30], b: [0.52, 0.22, 15], c: [0.48, 0.22, 5], hi: [0.95, 0.06, 40] },
   { at: 0.5, a: [0.84, 0.16, 80], b: [0.6, 0.18, 60], c: [0.55, 0.18, 45], hi: [0.96, 0.05, 85] },
   { at: 1, a: [0.84, 0.16, 150], b: [0.58, 0.18, 165], c: [0.52, 0.18, 175], hi: [0.96, 0.05, 150] },
