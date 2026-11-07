@@ -70,6 +70,7 @@ export function JudgesScene({ ref, judges = DEFAULT_JUDGES, className }: JudgesS
     ref,
     () => ({
       say: (i, text, ms) => judgeRefs.current[i]?.say(text, ms),
+      speak: (i, text, level) => judgeRefs.current[i]?.speak(text, level) ?? (() => {}),
       react: (i, r) => judgeRefs.current[i]?.react(r),
     }),
     [],

@@ -15,6 +15,8 @@ export const CLIP_URLS = CLIP_NAMES.map((n) => `${BASE}animations/${CLIP_FILES[n
 
 export interface JudgeHandle {
   say(text: string, durationMs?: number): void;
+  /** Subtitle + talking while `level()` (0..1) drives glow and head bob; call the returned fn to stop. */
+  speak(text: string, level: () => number): () => void;
   react(reaction: JudgeReaction): void;
 }
 
@@ -36,6 +38,8 @@ export function Judge({ config, ref }: { config: JudgeConfig; ref?: Ref<JudgeHan
   const source = useLoader(FBXLoader, CHARACTER_URL);
   const anims = useLoader(FBXLoader, CLIP_URLS);
   const [subtitle, setSubtitle] = useState<string | null>(null);
+  const levelFn = useRef<(() => number) | null>(null);
+  const level = useRef(0);
   const glowTarget = useRef(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -88,9 +92,24 @@ export function Judge({ config, ref }: { config: JudgeConfig; ref?: Ref<JudgeHan
           animator.current?.play(animator.current.idle);
         }, durationMs ?? estimateSpeechMs(text));
       },
+      speak(text, level) {
+        if (timer.current) clearTimeout(timer.current);
+        setSubtitle(text);
+        levelFn.current = level;
+        animator.current?.play("talking");
+        return () => {
+          if (levelFn.current !== level) return; // superseded by a newer utterance
+          levelFn.current = null;
+          setSubtitle(null);
+          animator.current?.play(animator.current.idle);
+        };
+      },
       react(reaction) {
         const a = animator.current;
-        a?.play(reaction === "idle" ? a.idle : reaction);
+        if (!a) return;
+        if (reaction === "idle") a.play(a.idle);
+        else if (reaction === "idle-alt") a.play(a.idle === "sitting-idle" ? "sitting-idle-2" : "sitting-idle");
+        else a.play(reaction);
       },
     }),
     [],
@@ -99,9 +118,16 @@ export function Judge({ config, ref }: { config: JudgeConfig; ref?: Ref<JudgeHan
   useFrame(({ camera, clock }, dt) => {
     animator.current?.update(dt);
 
+    // Live level (backend audio / speech fallback) drives glow and head bob; else timed say() pulse.
+    const raw = levelFn.current ? levelFn.current() : 0;
+    level.current = THREE.MathUtils.lerp(level.current, raw, Math.min(1, dt * (raw > level.current ? 18 : 6)));
     const u = material.uniforms["uSpeakGlow"]!;
-    const target = glowTarget.current ? 0.75 + 0.25 * Math.sin(clock.elapsedTime * 9) : 0;
-    u.value = THREE.MathUtils.lerp(u.value, target, Math.min(1, dt * 8));
+    const target = levelFn.current
+      ? 0.35 + 0.65 * level.current
+      : glowTarget.current
+        ? 0.75 + 0.25 * Math.sin(clock.elapsedTime * 9)
+        : 0;
+    u.value = THREE.MathUtils.lerp(u.value, target, Math.min(1, dt * 10));
 
     // Head looks at the camera, applied on top of the animated pose.
     if (head?.parent) {
@@ -115,6 +141,7 @@ export function Judge({ config, ref }: { config: JudgeConfig; ref?: Ref<JudgeHan
       head.getWorldQuaternion(_qHead);
       head.parent.getWorldQuaternion(_qParent);
       head.quaternion.copy(_qParent.invert().multiply(_qDelta.multiply(_qHead)));
+      if (level.current > 0.01) head.rotateX(-level.current * 0.16);
     }
   });
 
