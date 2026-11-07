@@ -1,4 +1,5 @@
 import { publish } from "../bus";
+import { clamp01 } from "../mood";
 import type { SignalSource } from "./types";
 
 /**
@@ -20,6 +21,7 @@ export class WebSocketSource implements SignalSource {
         // TODO: expected shape { channel: "orbLevel" | "feedback", value: ... }
         if (msg.channel === "orbLevel") publish("orbLevel", Number(msg.value));
         if (msg.channel === "feedback") publish("feedback", msg.value);
+        if (msg.channel === "jjMood") publish("jjMood", clamp01(Number(msg.value)));
       } catch {
         // TODO: log malformed messages
       }

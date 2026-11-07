@@ -133,10 +133,14 @@
   --border: oklch(1 0 0 / 9%);
   --input: oklch(1 0 0 / 14%);
   --ring: oklch(0.82 0.13 200 / 60%);
-  --orb-a: oklch(0.85 0.14 195);
-  --orb-b: oklch(0.55 0.24 260);
-  --orb-c: oklch(0.5 0.26 300);
-  --orb-hi: oklch(0.97 0.04 210);
+  --orb-a-base: oklch(0.85 0.14 195);
+  --orb-b-base: oklch(0.55 0.24 260);
+  --orb-c-base: oklch(0.5 0.26 300);
+  --orb-hi-base: oklch(0.97 0.04 210);
+  --orb-a: var(--orb-a-base);
+  --orb-b: var(--orb-b-base);
+  --orb-c: var(--orb-c-base);
+  --orb-hi: var(--orb-hi-base);
   --vignette-red: oklch(0.62 0.24 25);
   --vignette-green: oklch(0.75 0.2 150);
   --shadow-glow: 0 0 40px -8px color-mix(in oklab, var(--primary) 60%, transparent);
@@ -169,6 +173,19 @@ body { font-family: var(--font-sans); overflow: hidden; }
 .orb svg { animation: orb-hue 16s ease-in-out infinite alternate; }
 @keyframes orb-hue { to { filter: hue-rotate(-35deg); } }
 @keyframes orb-bloom { to { transform: rotate(160deg) scale(1.1); } }
+
+/*
+ * JJ's screen: the orb wears the mood color sampled when the screen loaded.
+ * The mood is mixed into the plasma colors rather than replacing them, so JJ
+ * still reads as the same blob, just warmer (red) or cooler (green).
+ */
+.jj-scene {
+  --jj-mood: oklch(0.72 0.19 82);
+  --orb-a: color-mix(in oklab, var(--jj-mood) 55%, var(--orb-a-base));
+  --orb-b: color-mix(in oklab, var(--jj-mood) 50%, var(--orb-b-base));
+  --orb-c: color-mix(in oklab, var(--jj-mood) 45%, var(--orb-c-base));
+  --orb-hi: color-mix(in oklab, var(--jj-mood) 20%, var(--orb-hi-base));
+}
 
 .vignette { position: absolute; inset: 0; transition: opacity 600ms ease; }
 .vignette-red { background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-red) 100%); }

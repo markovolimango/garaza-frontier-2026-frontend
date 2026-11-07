@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { CSSProperties } from "react";
 import { Orb } from "@/components/Orb";
 import { NextButton } from "@/components/NextButton";
+import { moodColor } from "@/signals/mood";
+import { useJjMood } from "@/signals/useJjMood";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -15,8 +18,14 @@ export const Route = createFileRoute("/")({
 });
 
 function JJ() {
+  // Sampled once on load: JJ keeps this color for the whole visit.
+  const mood = useJjMood();
+
   return (
-    <main className="relative flex h-screen flex-col items-center justify-center gap-12">
+    <main
+      className="jj-scene relative flex h-screen flex-col items-center justify-center gap-12"
+      style={{ "--jj-mood": moodColor(mood) } as CSSProperties}
+    >
       <span className="absolute left-8 top-6 font-mono text-xs tracking-widest text-muted-foreground">JJ</span>
       <Orb />
       <p className="max-w-xl text-center text-lg text-muted-foreground">
