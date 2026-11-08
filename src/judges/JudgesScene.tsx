@@ -48,12 +48,22 @@ export function JudgesScene({ ref, judges = DEFAULT_JUDGES, className }: JudgesS
 
   return (
     <div className={className} style={{ position: "relative", width: "100%", height: "100%", background: "#07080b" }}>
-      <Canvas camera={{ position: [0, 1.62, 3.6], fov: 42 }} onCreated={({ camera }) => camera.lookAt(0, 0.95, -0.4)}>
+      <Canvas shadows camera={{ position: [0, 1.62, 3.6], fov: 42 }} onCreated={({ camera }) => camera.lookAt(0, 0.95, -0.4)}>
         <color attach="background" args={["#07080b"]} />
-        <fog attach="fog" args={["#07080b", 7, 14]} />
-        <ambientLight intensity={0.35} />
-        <hemisphereLight args={["#8fb0ff", "#0a0b10", 0.35]} />
-        <spotLight position={[0, 3.2, 2.2]} angle={0.75} penumbra={0.9} intensity={28} color="#dfe8ff" />
+        <fog attach="fog" args={["#07080b", 8, 16]} />
+        <hemisphereLight args={["#ffffff", "#3a3c42", 1.6]} />
+        <ambientLight intensity={0.25} />
+        <directionalLight
+          position={[1.8, 3.2, 3.2]}
+          intensity={1.6}
+          castShadow
+          shadow-mapSize={[1024, 1024]}
+          shadow-camera-left={-5}
+          shadow-camera-right={5}
+          shadow-camera-top={4}
+          shadow-camera-bottom={-3}
+          shadow-bias={-0.0005}
+        />
         <FitCamera />
         <Room judges={judges} />
         <Suspense fallback={null}>
