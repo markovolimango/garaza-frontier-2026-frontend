@@ -130,6 +130,13 @@ function RootComponent() {
 
   useEffect(() => startSignals(), []);
   useEffect(() => {
+    // Browser-only imports keep WebGL code out of SSR; share the scene's loader cache.
+    void Promise.all([
+      import("../lib/preloadJudges.client").then(({ preloadJudges }) => preloadJudges()),
+      import("../components/JudgesStage"),
+    ]).catch((error: unknown) => console.warn("Judges preload unavailable; loading on visit instead.", error));
+  }, []);
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).closest("input,textarea,select")) return;
       const i = Number(e.key) - 1;
