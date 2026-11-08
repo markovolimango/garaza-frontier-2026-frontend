@@ -142,7 +142,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div key={pathname} className="scene">
+        <Outlet />
+      </div>
       <Vignette active={pathname === "/presenter" || pathname === "/judges"} />
       <DebugPanel />
     </QueryClientProvider>

@@ -197,6 +197,16 @@ body { font-family: var(--font-sans); overflow: hidden; letter-spacing: -0.011em
 @keyframes orb-hue-soft { to { filter: hue-rotate(-10deg); } }
 .jj-scene .orb svg { animation-name: orb-hue-soft; }
 
+/* Screen-to-screen transition: the incoming scene rises from below like a scroll down. */
+@keyframes scene-in {
+  from { transform: translateY(5vh); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.scene { animation: scene-in 420ms cubic-bezier(0.32, 0.72, 0, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .scene { animation: none; }
+}
+
 .vignette { position: absolute; inset: 0; transition: opacity 600ms ease; }
 .vignette-red { background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-red) 100%); }
 .vignette-green { background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-green) 100%); }
