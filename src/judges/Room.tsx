@@ -1,5 +1,5 @@
 /**
- * Minimal dark-grey room: flat-shaded matte blocks, no emissives (stylized "clean geometry" look).
+ * Minimal light-grey room: flat-shaded matte blocks, no emissives (stylized "clean geometry" look).
  * Keep props referentially stable (strings/numbers, no per-render objects): the dev-only TanStack
  * inject-source plugin adds `data-tsd-source` to JSX, and R3F throws on it during prop updates.
  */
@@ -8,17 +8,17 @@ import type { JudgeConfig } from "./types";
 
 const W = 9; // room width
 const H = 3.4; // ceiling height
-const BACK = -2.8;
+const BACK = -5.2;
 const FRONT = 4.6;
 const DEPTH = FRONT - BACK;
 const MID_Z = (FRONT + BACK) / 2;
 
-const FLOOR = "#2a2c30";
-const WALL = "#3a3d42";
-const CEIL = "#24262a";
-const TABLE = "#55585e";
-const CHAIR = "#46494f";
-const CHAIR_DARK = "#2f3136";
+const FLOOR = "#d9dadc";
+const WALL = "#eceded";
+const CEIL = "#f4f4f5";
+const TABLE = "#c4c6c9";
+const CHAIR = "#b3b5b9";
+const CHAIR_DARK = "#8e9196";
 
 function Block({ size, position, color, cast = true }: { size: [number, number, number]; position: [number, number, number]; color: string; cast?: boolean }) {
   return (

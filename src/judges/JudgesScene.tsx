@@ -47,15 +47,15 @@ export function JudgesScene({ ref, judges = DEFAULT_JUDGES, className }: JudgesS
   );
 
   return (
-    <div className={className} style={{ position: "relative", width: "100%", height: "100%", background: "#07080b" }}>
+    <div className={className} style={{ position: "relative", width: "100%", height: "100%", background: "#e9eaeb" }}>
       <Canvas shadows camera={{ position: [0, 1.62, 3.6], fov: 42 }} onCreated={({ camera }) => camera.lookAt(0, 0.95, -0.4)}>
-        <color attach="background" args={["#07080b"]} />
-        <fog attach="fog" args={["#07080b", 8, 16]} />
-        <hemisphereLight args={["#ffffff", "#3a3c42", 1.6]} />
+        <color attach="background" args={["#e9eaeb"]} />
+        <fog attach="fog" args={["#e9eaeb", 9, 20]} />
+        <hemisphereLight args={["#ffffff", "#b9bbc0", 1.3]} />
         <ambientLight intensity={0.25} />
         <directionalLight
           position={[1.8, 3.2, 3.2]}
-          intensity={1.6}
+          intensity={1.2}
           castShadow
           shadow-mapSize={[1024, 1024]}
           shadow-camera-left={-5}
