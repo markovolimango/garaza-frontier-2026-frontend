@@ -37,6 +37,8 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
   const shell = useRef<SVGPathElement>(null);
   const inner = useRef<SVGPathElement>(null);
   const core = useRef<SVGPathElement>(null);
+  const mid = useRef<SVGPathElement>(null);
+  const rim = useRef<SVGPathElement>(null);
   const swirl = useRef<SVGGElement>(null);
   const turb = useRef<SVGFETurbulenceElement>(null);
   const target = useRef(0);
@@ -59,6 +61,8 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
       const amp = 0.025 + cur * 0.09;
       shell.current?.setAttribute("d", blobPath(78 + breathe * 78, time, amp, 0));
       inner.current?.setAttribute("d", blobPath(58, time * 1.3, amp * 1.4, 1.7));
+      mid.current?.setAttribute("d", blobPath(46, -time * 1.5, amp * 1.6, 5.3));
+      rim.current?.setAttribute("d", blobPath(86 + breathe * 86, -time * 0.8, amp * 0.9, 2.4));
       core.current?.setAttribute("d", blobPath(34, time * 1.7, amp * 1.8, 3.1));
       swirl.current?.setAttribute("transform", `rotate(${(time * 25) % 360} 100 100)`);
       turb.current?.setAttribute("baseFrequency", `${(0.012 + cur * 0.01).toFixed(4)}`);
@@ -104,10 +108,12 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
           </filter>
           <filter id="orb-soft"><feGaussianBlur stdDeviation="4" /></filter>
         </defs>
+        <path ref={rim} fill="none" stroke="url(#orb-g2)" strokeWidth="1.2" opacity="0.6" filter="url(#orb-soft)" style={{ mixBlendMode: "screen" }} />
         <path ref={shell} fill="url(#orb-g1)" />
         <g ref={swirl} filter="url(#orb-turb)" style={{ mixBlendMode: "screen" }}>
           <path ref={inner} fill="url(#orb-g2)" opacity="0.75" />
         </g>
+        <path ref={mid} fill="url(#orb-g1)" opacity="0.45" style={{ mixBlendMode: "screen" }} />
         <path ref={core} fill="url(#orb-g3)" filter="url(#orb-soft)" style={{ mixBlendMode: "screen" }} />
       </svg>
     </div>
