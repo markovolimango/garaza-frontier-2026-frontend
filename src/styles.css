@@ -111,6 +111,16 @@
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
   --warning: oklch(0.7 0.16 70);
+  --orb-a-base: oklch(0.86 0.14 210);
+  --orb-b-base: oklch(0.56 0.22 285);
+  --orb-c-base: oklch(0.52 0.26 305);
+  --orb-hi-base: oklch(0.97 0.03 230);
+  --orb-a: var(--orb-a-base);
+  --orb-b: var(--orb-b-base);
+  --orb-c: var(--orb-c-base);
+  --orb-hi: var(--orb-hi-base);
+  --vignette-red: oklch(0.62 0.24 25);
+  --vignette-green: oklch(0.75 0.2 150);
 }
 
 .dark {
