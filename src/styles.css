@@ -220,3 +220,24 @@ body { font-family: var(--font-sans); overflow: hidden; letter-spacing: -0.011em
 .vignette { position: absolute; inset: 0; transition: opacity 600ms ease; }
 .vignette-red { background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-red) 100%); }
 .vignette-green { background: radial-gradient(ellipse at center, transparent 45%, var(--vignette-green) 100%); }
+
+/* Stable lyric stage: the outgoing line recedes while the new line rises. */
+.jj-lyrics { height: 144px; }
+.jj-lyrics-previous { height: 40px; margin-bottom: 14px; font-size: 18px; line-height: 24px; opacity: 0.4; animation: jj-lyric-recede 500ms ease both; }
+.jj-lyrics-current { font-size: 34px; font-weight: 700; line-height: 1.25; letter-spacing: 0; animation: jj-lyric-enter 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.jj-lyric-word { display: inline-block; white-space: pre; }
+@keyframes jj-lyric-enter {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes jj-lyric-recede {
+  from { opacity: 0.7; transform: translateY(12px); }
+  to { opacity: 0.4; transform: none; }
+}
+@media (max-width: 640px) {
+  .jj-lyrics-current { font-size: 26px; }
+  .jj-lyrics-previous { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jj-lyrics-current, .jj-lyrics-previous { animation: none; }
+}
