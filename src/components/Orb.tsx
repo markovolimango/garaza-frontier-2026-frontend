@@ -1,7 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from "react";
-import { ClientOnly } from "@tanstack/react-router";
-
-const OrbScene = lazy(() => import("./OrbScene"));
+import { useEffect, useRef } from "react";
 import { subscribe } from "@/signals";
 
 interface OrbProps {
@@ -60,9 +57,9 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
       time += dt * (0.6 + cur * 1.6);
       const breathe = Math.sin(now / 1400) * 0.015;
       const amp = 0.025 + cur * 0.09;
-      // {x}.current?.setAttribute("d", blobPath(78 + breathe * 78, time, amp, 0));
-      // {x}.current?.setAttribute("d", blobPath(58, time * 1.3, amp * 1.4, 1.7));
-      // {x}.current?.setAttribute("d", blobPath(34, time * 1.7, amp * 1.8, 3.1));
+      shell.current?.setAttribute("d", blobPath(78 + breathe * 78, time, amp, 0));
+      inner.current?.setAttribute("d", blobPath(58, time * 1.3, amp * 1.4, 1.7));
+      core.current?.setAttribute("d", blobPath(34, time * 1.7, amp * 1.8, 3.1));
       swirl.current?.setAttribute("transform", `rotate(${(time * 25) % 360} 100 100)`);
       turb.current?.setAttribute("baseFrequency", `${(0.012 + cur * 0.01).toFixed(4)}`);
       const el = ref.current;
@@ -83,11 +80,36 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
     <div ref={ref} className="orb" style={{ width: size, height: size }} aria-label="AI assistant">
       <div className="orb-glow" />
       <div className="orb-glow orb-glow-2" />
-      <ClientOnly>
-        <Suspense fallback={null}>
-          <OrbScene min={min} max={max} />
-        </Suspense>
-      </ClientOnly>
+      <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full overflow-visible">
+        <defs>
+          <radialGradient id="orb-g1" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stopColor="var(--orb-hi)" />
+            <stop offset="35%" stopColor="var(--orb-a)" />
+            <stop offset="70%" stopColor="var(--orb-b)" />
+            <stop offset="100%" stopColor="var(--orb-c)" />
+          </radialGradient>
+          <linearGradient id="orb-g2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="var(--orb-c)" stopOpacity="0.9" />
+            <stop offset="50%" stopColor="var(--orb-a)" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="var(--orb-b)" stopOpacity="0.9" />
+          </linearGradient>
+          <radialGradient id="orb-g3">
+            <stop offset="0%" stopColor="var(--orb-hi)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="var(--orb-a)" stopOpacity="0" />
+          </radialGradient>
+          <filter id="orb-turb" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence ref={turb} type="fractalNoise" baseFrequency="0.014" numOctaves="2" seed="3" />
+            <feDisplacementMap in="SourceGraphic" scale="10" />
+            <feGaussianBlur stdDeviation="1.2" />
+          </filter>
+          <filter id="orb-soft"><feGaussianBlur stdDeviation="4" /></filter>
+        </defs>
+        <path ref={shell} fill="url(#orb-g1)" />
+        <g ref={swirl} filter="url(#orb-turb)" style={{ mixBlendMode: "screen" }}>
+          <path ref={inner} fill="url(#orb-g2)" opacity="0.75" />
+        </g>
+        <path ref={core} fill="url(#orb-g3)" filter="url(#orb-soft)" style={{ mixBlendMode: "screen" }} />
+      </svg>
     </div>
   );
 }
