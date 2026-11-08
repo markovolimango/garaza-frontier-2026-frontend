@@ -39,6 +39,7 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
   const core = useRef<SVGPathElement>(null);
   const mid = useRef<SVGPathElement>(null);
   const rim = useRef<SVGPathElement>(null);
+  const extra = useRef<(SVGPathElement | null)[]>([]);
   const swirl = useRef<SVGGElement>(null);
   const turb = useRef<SVGFETurbulenceElement>(null);
   const target = useRef(0);
@@ -63,6 +64,11 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
       inner.current?.setAttribute("d", blobPath(58, time * 1.3, amp * 1.4, 1.7));
       mid.current?.setAttribute("d", blobPath(46, -time * 1.5, amp * 1.6, 5.3));
       rim.current?.setAttribute("d", blobPath(86 + breathe * 86, -time * 0.8, amp * 0.9, 2.4));
+      extra.current[0]?.setAttribute("d", blobPath(70, time * 1.1, amp * 1.2, 7.1));
+      extra.current[1]?.setAttribute("d", blobPath(52, time * -1.9, amp * 1.7, 8.6));
+      extra.current[2]?.setAttribute("d", blobPath(40, time * 2.2, amp * 2.0, 9.9));
+      extra.current[3]?.setAttribute("d", blobPath(64, time * -1.2, amp * 1.3, 11.3));
+      extra.current[4]?.setAttribute("d", blobPath(28, time * 2.6, amp * 2.2, 12.7));
       core.current?.setAttribute("d", blobPath(34, time * 1.7, amp * 1.8, 3.1));
       swirl.current?.setAttribute("transform", `rotate(${(time * 25) % 360} 100 100)`);
       turb.current?.setAttribute("baseFrequency", `${(0.012 + cur * 0.01).toFixed(4)}`);
@@ -114,6 +120,11 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
           <path ref={inner} fill="url(#orb-g2)" opacity="0.75" />
         </g>
         <path ref={mid} fill="url(#orb-g1)" opacity="0.45" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[0] = el; }} fill="url(#orb-g2)" opacity="0.35" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[1] = el; }} fill="url(#orb-g3)" opacity="0.5" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[2] = el; }} fill="url(#orb-g2)" opacity="0.4" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[3] = el; }} fill="url(#orb-g1)" opacity="0.3" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[4] = el; }} fill="url(#orb-g3)" opacity="0.6" style={{ mixBlendMode: "screen" }} />
         <path ref={core} fill="url(#orb-g3)" filter="url(#orb-soft)" style={{ mixBlendMode: "screen" }} />
       </svg>
     </div>
