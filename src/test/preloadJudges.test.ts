@@ -9,7 +9,7 @@ vi.mock("@/judges/Judge", () => ({
 
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import { CHARACTER_URL, CLIP_URLS } from "@/judges/Judge";
-import { preloadJudges } from "@/lib/preloadJudges.client";
+import { preloadJudges } from "@/lib/preloadJudges";
 
 it("preloads the character and animation array into the same loader cache used by judges", () => {
   preloadJudges();
