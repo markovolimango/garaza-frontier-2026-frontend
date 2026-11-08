@@ -21,14 +21,25 @@ export function DebugPanel() {
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
   const chosenMood = selectedMood ?? loadMood ?? mood ?? 0.5;
 
-  return (
-    <div className="glass fixed bottom-4 right-4 z-[110] max-h-[calc(100dvh-2rem)] w-64 overflow-y-auto rounded-2xl font-mono text-xs text-card-foreground">
+  if (!open) {
+    return (
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => setOpen(true)}
+        className="fixed bottom-4 right-4 z-[110] font-mono text-xs text-foreground opacity-40 transition-opacity hover:opacity-100"
+      >
+        Debug
+      </button>
+    );
+  }
+
+  return (
+    <div className="glass fixed bottom-4 right-4 z-[110] max-h-[calc(100dvh-2rem)] w-64 overflow-y-auto rounded-md font-mono text-xs text-card-foreground">
+      <button
+        onClick={() => setOpen(false)}
         className="flex w-full items-center justify-between px-3 py-2 text-muted-foreground hover:text-foreground"
       >
-        <span>DEBUG</span>
-        <span>{open ? "–" : "+"}</span>
+        <span>Debug</span>
+        <span>–</span>
       </button>
       {open && (
         <div className="space-y-2 border-t border-border px-3 py-3">
