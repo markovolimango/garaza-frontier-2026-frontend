@@ -69,6 +69,16 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
       extra.current[2]?.setAttribute("d", blobPath(40, time * 2.2, amp * 2.0, 9.9));
       extra.current[3]?.setAttribute("d", blobPath(64, time * -1.2, amp * 1.3, 11.3));
       extra.current[4]?.setAttribute("d", blobPath(28, time * 2.6, amp * 2.2, 12.7));
+      extra.current[5]?.setAttribute("d", blobPath(24.0, time * 1.0, amp * 1.1, 14.0));
+      extra.current[6]?.setAttribute("d", blobPath(29.3, time * -1.45, amp * 1.35, 15.37));
+      extra.current[7]?.setAttribute("d", blobPath(34.6, time * 1.9, amp * 1.6, 16.74));
+      extra.current[8]?.setAttribute("d", blobPath(39.9, time * -2.35, amp * 1.85, 18.11));
+      extra.current[9]?.setAttribute("d", blobPath(45.2, time * 1.0, amp * 2.1, 19.48));
+      extra.current[10]?.setAttribute("d", blobPath(50.5, time * -1.45, amp * 1.1, 20.85));
+      extra.current[11]?.setAttribute("d", blobPath(55.8, time * 1.9, amp * 1.35, 22.22));
+      extra.current[12]?.setAttribute("d", blobPath(61.1, time * -2.35, amp * 1.6, 23.59));
+      extra.current[13]?.setAttribute("d", blobPath(66.4, time * 1.0, amp * 1.85, 24.96));
+      extra.current[14]?.setAttribute("d", blobPath(71.7, time * -1.45, amp * 2.1, 26.33));
       core.current?.setAttribute("d", blobPath(34, time * 1.7, amp * 1.8, 3.1));
       swirl.current?.setAttribute("transform", `rotate(${(time * 25) % 360} 100 100)`);
       turb.current?.setAttribute("baseFrequency", `${(0.012 + cur * 0.01).toFixed(4)}`);
@@ -125,6 +135,16 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
         <path ref={(el) => { extra.current[2] = el; }} fill="url(#orb-g2)" opacity="0.4" style={{ mixBlendMode: "screen" }} />
         <path ref={(el) => { extra.current[3] = el; }} fill="url(#orb-g1)" opacity="0.3" style={{ mixBlendMode: "screen" }} />
         <path ref={(el) => { extra.current[4] = el; }} fill="url(#orb-g3)" opacity="0.6" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[5] = el; }} fill="url(#orb-g1)" opacity="0.18" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[6] = el; }} fill="url(#orb-g2)" opacity="0.24" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[7] = el; }} fill="url(#orb-g3)" opacity="0.3" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[8] = el; }} fill="url(#orb-g1)" opacity="0.36" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[9] = el; }} fill="url(#orb-g2)" opacity="0.18" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[10] = el; }} fill="url(#orb-g3)" opacity="0.24" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[11] = el; }} fill="url(#orb-g1)" opacity="0.3" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[12] = el; }} fill="url(#orb-g2)" opacity="0.36" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[13] = el; }} fill="url(#orb-g3)" opacity="0.18" style={{ mixBlendMode: "screen" }} />
+        <path ref={(el) => { extra.current[14] = el; }} fill="url(#orb-g1)" opacity="0.24" style={{ mixBlendMode: "screen" }} />
         <path ref={core} fill="url(#orb-g3)" filter="url(#orb-soft)" style={{ mixBlendMode: "screen" }} />
       </svg>
     </div>
