@@ -40,7 +40,7 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
   const mid = useRef<SVGPathElement>(null);
   const rim = useRef<SVGPathElement>(null);
   const extra = useRef<(SVGPathElement | null)[]>([]);
-  const squares = useRef<(SVGRectElement | null)[]>([]);
+  const squares = useRef<(SVGPolygonElement | null)[]>([]);
   const swirl = useRef<SVGGElement>(null);
   const turb = useRef<SVGFETurbulenceElement>(null);
   const target = useRef(0);
@@ -151,11 +151,11 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
         <path ref={(el) => { extra.current[12] = el; }} fill="url(#orb-g2)" opacity="0.36" style={{ mixBlendMode: "screen" }} />
         <path ref={(el) => { extra.current[13] = el; }} fill="url(#orb-g3)" opacity="0.18" style={{ mixBlendMode: "screen" }} />
         <path ref={(el) => { extra.current[14] = el; }} fill="url(#orb-g1)" opacity="0.24" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[0] = el; }} x="-60.0" y="-60.0" width="120" height="120" fill="none" stroke="url(#orb-g2)" strokeWidth="1" opacity="0.55" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[1] = el; }} x="-50.0" y="-50.0" width="100" height="100" fill="none" stroke="url(#orb-g1)" strokeWidth="1" opacity="0.50" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[2] = el; }} x="-40.0" y="-40.0" width="80" height="80" fill="none" stroke="url(#orb-g2)" strokeWidth="1" opacity="0.45" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[3] = el; }} x="-30.0" y="-30.0" width="60" height="60" fill="none" stroke="url(#orb-g3)" strokeWidth="1" opacity="0.40" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[4] = el; }} x="-20.0" y="-20.0" width="40" height="40" fill="none" stroke="url(#orb-g1)" strokeWidth="1" opacity="0.35" style={{ mixBlendMode: "screen" }} />
+        <polygon ref={(el) => { squares.current[0] = el; }} points="60.00,0.00 30.00,51.96 -30.00,51.96 -60.00,0.00 -30.00,-51.96 30.00,-51.96" fill="none" stroke="url(#orb-g2)" strokeWidth="1" opacity="0.55" style={{ mixBlendMode: "screen" }} />
+        <polygon ref={(el) => { squares.current[1] = el; }} points="50.00,0.00 25.00,43.30 -25.00,43.30 -50.00,0.00 -25.00,-43.30 25.00,-43.30" fill="none" stroke="url(#orb-g1)" strokeWidth="1" opacity="0.50" style={{ mixBlendMode: "screen" }} />
+        <polygon ref={(el) => { squares.current[2] = el; }} points="40.00,0.00 20.00,34.64 -20.00,34.64 -40.00,0.00 -20.00,-34.64 20.00,-34.64" fill="none" stroke="url(#orb-g2)" strokeWidth="1" opacity="0.45" style={{ mixBlendMode: "screen" }} />
+        <polygon ref={(el) => { squares.current[3] = el; }} points="30.00,0.00 15.00,25.98 -15.00,25.98 -30.00,0.00 -15.00,-25.98 15.00,-25.98" fill="none" stroke="url(#orb-g3)" strokeWidth="1" opacity="0.40" style={{ mixBlendMode: "screen" }} />
+        <polygon ref={(el) => { squares.current[4] = el; }} points="20.00,0.00 10.00,17.32 -10.00,17.32 -20.00,0.00 -10.00,-17.32 10.00,-17.32" fill="none" stroke="url(#orb-g1)" strokeWidth="1" opacity="0.35" style={{ mixBlendMode: "screen" }} />
         <path ref={core} fill="url(#orb-g3)" filter="url(#orb-soft)" style={{ mixBlendMode: "screen" }} />
       </svg>
     </div>
