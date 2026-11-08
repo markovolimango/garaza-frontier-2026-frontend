@@ -132,7 +132,7 @@ function RootComponent() {
   useEffect(() => {
     // Browser-only imports keep WebGL code out of SSR; share the scene's loader cache.
     void Promise.all([
-      import("../lib/preloadJudges.client").then(({ preloadJudges }) => preloadJudges()),
+      import("../lib/preloadJudges").then(({ preloadJudges }) => preloadJudges()),
       import("../components/JudgesStage"),
     ]).catch((error: unknown) => console.warn("Judges preload unavailable; loading on visit instead.", error));
   }, []);
