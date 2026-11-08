@@ -29,7 +29,7 @@ export function Timer({ totalSec, onTotalChange }: TimerProps) {
   const tone = remaining <= 0 ? "text-destructive" : remaining <= 60 ? "text-warning" : "text-foreground";
 
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
+    <div className="glass rounded-2xl p-4">
       <div className="flex items-baseline justify-between">
         <span className={`font-mono text-5xl tabular-nums ${tone}`}>{fmt(remaining)}</span>
         <span className="font-mono text-sm text-muted-foreground">elapsed {fmt(elapsed)}</span>
@@ -41,7 +41,7 @@ export function Timer({ totalSec, onTotalChange }: TimerProps) {
           min={1}
           value={Math.round(totalSec / 60)}
           onChange={(e) => onTotalChange(Math.max(1, Number(e.target.value)) * 60)}
-          className="w-16 rounded border border-input bg-background px-2 py-1"
+          className="w-16 rounded-full border border-input bg-background px-2 py-1 text-center"
         />
         <div className="ml-auto flex gap-1">
           <Btn onClick={() => setRunning((r) => !r)}>{running ? "Pause" : "Start"}</Btn>
@@ -56,7 +56,7 @@ export function Btn({ children, onClick, active }: { children: React.ReactNode; 
   return (
     <button
       onClick={onClick}
-      className={`rounded-md border border-border px-3 py-1 text-sm transition-colors hover:bg-accent ${active ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-secondary"}`}
+      className={`glass rounded-full px-4 py-1.5 text-sm transition-colors hover:bg-accent ${active ? "bg-primary text-primary-foreground hover:bg-primary/90" : ""}`}
     >
       {children}
     </button>
