@@ -17,6 +17,7 @@ const FLOOR = "#d9dadc";
 const WALL = "#eceded";
 const CEIL = "#f4f4f5";
 const TABLE = "#c4c6c9";
+const TABLE_BODY = "#b2b4b8";
 const CHAIR = "#b3b5b9";
 const CHAIR_DARK = "#8e9196";
 
@@ -49,11 +50,9 @@ function Shell() {
 function Table() {
   return (
     <group>
-      <Block size={[5.0, 0.07, 1.0]} position={[0, 0.745, 0]} color={TABLE} />
-      {/* solid front panel and two slab legs */}
-      <Block size={[4.8, 0.62, 0.05]} position={[0, 0.4, 0.42]} color={TABLE} />
-      <Block size={[0.07, 0.71, 0.9]} position={[-2.4, 0.355, 0]} color={TABLE} />
-      <Block size={[0.07, 0.71, 0.9]} position={[2.4, 0.355, 0]} color={TABLE} />
+      {/* two stacked blocks: an overhanging top and a recessed, slightly darker body */}
+      <Block size={[5.0, 0.1, 1.0]} position={[0, 0.73, 0]} color={TABLE} />
+      <Block size={[4.6, 0.68, 0.72]} position={[0, 0.34, -0.06]} color={TABLE_BODY} />
     </group>
   );
 }

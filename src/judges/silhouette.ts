@@ -6,8 +6,8 @@ function paletteFrom(tint: THREE.ColorRepresentation) {
   new THREE.Color(tint).getHSL(hsl);
   const sat = Math.min(1, hsl.s * 1.1);
   return {
-    base: new THREE.Color().setHSL(hsl.h, sat * 0.6, 0.075),
-    rim: new THREE.Color().setHSL(hsl.h, sat * 0.9, 0.66),
+    base: new THREE.Color().setHSL(hsl.h, sat * 0.42, 0.46),
+    rim: new THREE.Color().setHSL(hsl.h, sat * 0.5, 0.86),
   };
 }
 
@@ -49,7 +49,7 @@ export function createSilhouetteMaterial(tint: THREE.ColorRepresentation) {
         vec3 n = normalize(vN);
         float fres = pow(1.0 - clamp(dot(n, normalize(vV)), 0.0, 1.0), uRimPower);
         float matte = 0.55 + 0.45 * clamp(n.y * 0.5 + 0.5, 0.0, 1.0);
-        vec3 col = uBase * matte + uRim * fres * (0.5 + 1.7 * uSpeakGlow) + uRim * 0.06 * uSpeakGlow;
+        vec3 col = uBase * matte + uRim * fres * (0.35 + 1.1 * uSpeakGlow) + uRim * 0.06 * uSpeakGlow;
         gl_FragColor = vec4(col, 1.0);
         #include <colorspace_fragment>
       }
