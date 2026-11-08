@@ -43,7 +43,7 @@ function JJScreen() {
     >
       <span className="absolute left-8 top-6 font-serif text-sm text-muted-foreground">JJ</span>
       <Orb />
-      <p className="max-w-xl text-center font-serif text-[34px] leading-snug text-foreground/85">
+      <p className="max-w-xl text-center font-sans text-[34px] leading-snug text-foreground/85">
         “Hi, I'm JJ. Whenever you're ready, start your run and I'll listen in.”
       </p>
       <Button size="lg" asChild>
