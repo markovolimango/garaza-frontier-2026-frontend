@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { subscribe } from "@/signals";
@@ -151,12 +151,6 @@ function Blob({ palette, level }: { palette: Palette; level: React.MutableRefObj
 export default function OrbScene({ min = 0, max = 1 }: { min?: number; max?: number }) {
   const host = useRef<HTMLDivElement>(null);
   const level = useRef(0);
-  const palette = useMemo<Palette | null>(() => null, []);
-  const pal = useRef<Palette | null>(palette);
-  if (!pal.current && typeof document !== "undefined") {
-    // sampled once per mount, matching the mood sample-on-mount rule
-    pal.current = null;
-  }
   useEffect(() => subscribe("orbLevel", (v) => {
     level.current = Math.min(1, Math.max(0, (v - min) / (max - min || 1)));
   }), [min, max]);
@@ -172,7 +166,6 @@ export default function OrbScene({ min = 0, max = 1 }: { min?: number; max?: num
   );
 }
 
-import { useState } from "react";
 function PaletteGate({ host, children }: { host: React.RefObject<HTMLDivElement | null>; children: (p: Palette) => React.ReactNode }) {
   const [p, setP] = useState<Palette | null>(null);
   useEffect(() => {
