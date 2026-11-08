@@ -202,7 +202,7 @@ body { font-family: var(--font-sans); overflow: hidden; letter-spacing: -0.011em
   from { transform: translateY(5vh); opacity: 0; }
   to { transform: none; opacity: 1; }
 }
-.scene { animation: scene-in 420ms cubic-bezier(0.32, 0.72, 0, 1); }
+.scene { animation: scene-in 750ms cubic-bezier(0.32, 0.72, 0, 1); }
 @media (prefers-reduced-motion: reduce) {
   .scene { animation: none; }
 }
