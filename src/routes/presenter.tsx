@@ -113,7 +113,7 @@ function Presenter() {
     <main className="flex h-screen gap-6 p-6">
       {/* left: slides */}
       <section className="flex min-w-0 flex-1 flex-col gap-3">
-        <div className="relative flex-1 overflow-hidden rounded-xl border border-border bg-card">
+        <div className="glass relative flex-1 overflow-hidden rounded-3xl">
           {doc ? (
             <PdfPage doc={doc} index={slide} className="absolute inset-4" />
           ) : (
@@ -142,7 +142,7 @@ function Presenter() {
 
       {/* right: side panel */}
       <aside className="flex w-[440px] shrink-0 flex-col gap-4">
-        <div className="h-[220px] rounded-xl border border-border bg-card p-2">
+        <div className="glass h-[220px] rounded-2xl p-2">
           <div className="px-1 text-xs uppercase tracking-widest text-muted-foreground">Next</div>
           {doc ? <PdfPage doc={doc} index={slide + 1} className="h-[180px]" /> : null}
         </div>
@@ -151,18 +151,18 @@ function Presenter() {
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Speaker notes…"
-          className="h-28 resize-none rounded-xl border border-border bg-card p-3 text-sm outline-none focus:border-ring"
+          className="glass h-28 resize-none rounded-2xl p-3 text-sm outline-none focus:border-ring"
         />
-        <div className="flex min-h-0 flex-1 flex-col rounded-xl border border-border bg-card">
+        <div className="glass flex min-h-0 flex-1 flex-col rounded-2xl">
           <div className="flex items-center gap-2 border-b border-border p-3 text-sm">
             <span className="font-medium">Timings</span>
-            <label className="ml-auto cursor-pointer rounded-md border border-border bg-secondary px-2 py-1 text-xs hover:bg-accent">
+            <label className="ml-auto cursor-pointer rounded-full border border-border bg-secondary px-3 py-1 text-xs hover:bg-accent">
               Import .pptx
               <input type="file" accept=".pptx" className="hidden" disabled={!doc} onChange={(e) => e.target.files?.[0] && onPptx(e.target.files[0])} />
             </label>
-            <button onClick={resetDefaults} className="rounded-md border border-border bg-secondary px-2 py-1 text-xs hover:bg-accent">Reset</button>
+            <button onClick={resetDefaults} className="rounded-full border border-border bg-secondary px-3 py-1 text-xs hover:bg-accent">Reset</button>
             {doc && (
-              <label className="cursor-pointer rounded-md border border-border bg-secondary px-2 py-1 text-xs hover:bg-accent">
+              <label className="cursor-pointer rounded-full border border-border bg-secondary px-3 py-1 text-xs hover:bg-accent">
                 New PDF
                 <input type="file" accept="application/pdf" className="hidden" onChange={(e) => e.target.files?.[0] && onPdf(e.target.files[0])} />
               </label>
@@ -171,7 +171,7 @@ function Presenter() {
           {status && <div className="px-3 pt-2 text-xs text-muted-foreground">{status}</div>}
           <ol className="flex-1 overflow-y-auto p-2 text-sm">
             {timings.map((t, i) => (
-              <li key={i} className={`flex items-center gap-2 rounded px-2 py-1 ${i === slide ? "bg-accent" : ""}`}>
+              <li key={i} className={`flex items-center gap-2 rounded-lg px-2 py-1 ${i === slide ? "bg-accent" : ""}`}>
                 <button onClick={() => go(i)} className="w-16 text-left text-muted-foreground hover:text-foreground">Slide {i + 1}</button>
                 <input
                   type="number"
@@ -179,7 +179,7 @@ function Presenter() {
                   step={0.5}
                   value={t}
                   onChange={(e) => setTimings((arr) => arr.map((v, j) => (j === i ? Number(e.target.value) : v)))}
-                  className="ml-auto w-20 rounded border border-input bg-background px-2 py-0.5 text-right font-mono"
+                  className="ml-auto w-20 rounded-full border border-input bg-background px-2 py-0.5 text-right font-mono"
                 />
                 <span className="text-xs text-muted-foreground">s</span>
               </li>

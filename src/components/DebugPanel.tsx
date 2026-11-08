@@ -22,7 +22,7 @@ export function DebugPanel() {
   const chosenMood = selectedMood ?? loadMood ?? mood ?? 0.5;
 
   return (
-    <div className="fixed bottom-4 right-4 z-[110] max-h-[calc(100dvh-2rem)] w-64 overflow-y-auto rounded-lg border border-border bg-card/90 font-mono text-xs text-card-foreground backdrop-blur">
+    <div className="glass fixed bottom-4 right-4 z-[110] max-h-[calc(100dvh-2rem)] w-64 overflow-y-auto rounded-2xl font-mono text-xs text-card-foreground">
       <button
         onClick={() => setOpen((o) => !o)}
         className="flex w-full items-center justify-between px-3 py-2 text-muted-foreground hover:text-foreground"
@@ -90,7 +90,7 @@ export function DebugPanel() {
               <button
                 key={c}
                 onClick={() => publish("feedback", { color: c, intensity: c === "neutral" ? 0 : 1 })}
-                className="flex-1 rounded border border-border px-1 py-1 hover:bg-accent"
+                className="flex-1 rounded-full border border-border px-1 py-1 hover:bg-accent"
               >
                 {c}
               </button>
@@ -125,7 +125,7 @@ function JudgeControls({ judge, line, ready }: { judge: JudgeIndex; line: string
       <div className="flex gap-1">
         <select aria-label={`Judge ${judge + 1} reaction`} value={reaction}
           onChange={(e) => setReaction(e.target.value as JudgeReaction)}
-          className="min-w-0 flex-1 rounded-md border border-input bg-background px-2 text-foreground">
+          className="min-w-0 flex-1 rounded-full border border-input bg-background px-2 text-foreground">
           {(["nod", "shake", "disapprove", "clap", "think", "texting", "talking", "idle", "idle-alt"] as const).map((r) => <option key={r} value={r}>{r}</option>)}
         </select>
         <Button size="sm" variant="outline" disabled={!ready} aria-label={`Judge ${judge + 1} react`}
