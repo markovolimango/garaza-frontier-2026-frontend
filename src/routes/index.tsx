@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
 import { Orb } from "@/components/Orb";
+import { JjLyrics } from "@/components/JjLyrics";
 import { NextButton } from "@/components/NextButton";
 import { Button } from "@/components/ui/button";
 import { moodOrbPalette } from "@/signals/mood";
@@ -43,9 +44,7 @@ function JJScreen() {
     >
       <span className="absolute left-8 top-6 font-serif text-sm text-muted-foreground">JJ</span>
       <Orb />
-      <p className="max-w-xl text-center font-sans text-[34px] leading-snug text-foreground/85">
-        “Hi, I'm JJ. Whenever you're ready, start your run and I'll listen in.”
-      </p>
+      <JjLyrics />
       <Button size="lg" asChild>
         <Link to="/presenter">Start run</Link>
       </Button>
