@@ -151,11 +151,11 @@ export function Orb({ min = 0, max = 1, size = 360 }: OrbProps) {
         <path ref={(el) => { extra.current[12] = el; }} fill="url(#orb-g2)" opacity="0.36" style={{ mixBlendMode: "screen" }} />
         <path ref={(el) => { extra.current[13] = el; }} fill="url(#orb-g3)" opacity="0.18" style={{ mixBlendMode: "screen" }} />
         <path ref={(el) => { extra.current[14] = el; }} fill="url(#orb-g1)" opacity="0.24" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[0] = el; }} x="-60.0" y="-60.0" width="120" height="120" rx="14.399999999999999" fill="none" stroke="url(#orb-g2)" strokeWidth="1" opacity="0.55" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[1] = el; }} x="-50.0" y="-50.0" width="100" height="100" rx="12.0" fill="none" stroke="url(#orb-g1)" strokeWidth="1" opacity="0.50" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[2] = el; }} x="-40.0" y="-40.0" width="80" height="80" rx="9.6" fill="none" stroke="url(#orb-g2)" strokeWidth="1" opacity="0.45" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[3] = el; }} x="-30.0" y="-30.0" width="60" height="60" rx="7.199999999999999" fill="none" stroke="url(#orb-g3)" strokeWidth="1" opacity="0.40" style={{ mixBlendMode: "screen" }} />
-        <rect ref={(el) => { squares.current[4] = el; }} x="-20.0" y="-20.0" width="40" height="40" rx="4.8" fill="none" stroke="url(#orb-g1)" strokeWidth="1" opacity="0.35" style={{ mixBlendMode: "screen" }} />
+        <rect ref={(el) => { squares.current[0] = el; }} x="-60.0" y="-60.0" width="120" height="120" fill="none" stroke="url(#orb-g2)" strokeWidth="1" opacity="0.55" style={{ mixBlendMode: "screen" }} />
+        <rect ref={(el) => { squares.current[1] = el; }} x="-50.0" y="-50.0" width="100" height="100" fill="none" stroke="url(#orb-g1)" strokeWidth="1" opacity="0.50" style={{ mixBlendMode: "screen" }} />
+        <rect ref={(el) => { squares.current[2] = el; }} x="-40.0" y="-40.0" width="80" height="80" fill="none" stroke="url(#orb-g2)" strokeWidth="1" opacity="0.45" style={{ mixBlendMode: "screen" }} />
+        <rect ref={(el) => { squares.current[3] = el; }} x="-30.0" y="-30.0" width="60" height="60" fill="none" stroke="url(#orb-g3)" strokeWidth="1" opacity="0.40" style={{ mixBlendMode: "screen" }} />
+        <rect ref={(el) => { squares.current[4] = el; }} x="-20.0" y="-20.0" width="40" height="40" fill="none" stroke="url(#orb-g1)" strokeWidth="1" opacity="0.35" style={{ mixBlendMode: "screen" }} />
         <path ref={core} fill="url(#orb-g3)" filter="url(#orb-soft)" style={{ mixBlendMode: "screen" }} />
       </svg>
     </div>
